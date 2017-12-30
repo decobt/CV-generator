@@ -1,7 +1,9 @@
 .page{
   margin:20px;
 }
-
+.btn-dark{
+  background:#2f2f2f;
+}
 input{
   display: block;
   width: 100%;
@@ -11,6 +13,22 @@ input{
   border: none;
   margin: 3% 0;
   outline: none;
+}
+textarea{
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  margin: 3% 0;
+  outline: none;
+  border-color:transparent;
+}
+.form-control{
+  border:none;
+}
+.form-control:focus,.form-control:hover{
+  box-shadow: none;
+  border-color:transparent;
 }
 .dragDrop{
   border:3px dashed #222;
@@ -28,15 +46,28 @@ input{
   border-color:#f5f5f5;
   color:#f5f5f5;
   background:rgba(0,0,0,0.1);
+  cursor:pointer;
 }
 
 .final-button{
-  background:rgba(0,0,0,0.7);
+  background:#2f2f2f;
   color:#f5f5f5;
   padding:40px 20px;
   cursor:pointer;
   border-radius:5px;
 }
 .final-button:hover, .final-button:focus{
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.8);
+  color:#fdc318;
+}
+.timeline_panel{
+  background:#2f2f2f;
+  padding:20px;
+  margin-bottom:20px;
+  color:#f5f5f5;
+}
+.mainIcon{
+  padding:10px;
+  color:#2f2f2f;
+  text-align:center;
 }
