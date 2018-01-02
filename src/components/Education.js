@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 class Education extends Component {
+  /*
+  * Submit Form function
+  * input: form input values
+  * output: returns object containing all form values
+  */
   submitForm(e){
     //prevent default event
     e.preventDefault();
@@ -31,11 +36,19 @@ class Education extends Component {
     this.props.returnValues(values,'education', form);
   }
 
-
+  /*
+  * Function that renders the qualifications from the data
+  * input: data
+  * output: generated output code
+  */
   renderQualification(data){
+    //define a variable to hold the output
     var output = [];
+    //check if data is empty
     if( data.length > 0 ){
+      //if not empty, loop through the values
       for(var i=0; i<data.length; i++){
+        //push code to output variable
         output.push(
           <div className="row" key={i}>
             <div className="col-sm-12">
@@ -58,13 +71,18 @@ class Education extends Component {
         );
       }//end of for
     }else{
+      //no output, so assign an empty array to output
       output = [];
     }
-
+    //return back output
     return output;
   }
 
+  /*
+  * Render the component
+  */
   render(){
+    //get rendered qualification from the data
     var qualification = this.renderQualification(this.props.data);
     return (
       <div className="education">
@@ -93,6 +111,9 @@ class Education extends Component {
   }
 }
 
+/*
+* Separator component
+*/
 class Separator extends Component{
   render(){
     return(
@@ -105,8 +126,15 @@ class Separator extends Component{
   }
 }
 
+/*
+* EducationForm component
+* holds the form inputs for education and qualification
+*/
 class EducationForm extends Component{
-  //checkBox
+  /*
+  * Check if checkbox is clicked
+  * if clicked, disable the end date
+  */
   checkBox(el){
     if(el.target.checked){
       document.getElementById('end-date').disabled = true;
@@ -114,6 +142,10 @@ class EducationForm extends Component{
       document.getElementById('end-date').disabled = false;
     }
   }
+
+  /*
+  * Render the component
+  */
   render(){
     return(
         <form onSubmit={this.props.formFunc}>
@@ -156,4 +188,6 @@ class EducationForm extends Component{
       );
     }
 }
+
+//export Education comp
 export default Education;
