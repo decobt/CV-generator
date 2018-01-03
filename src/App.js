@@ -1,71 +1,106 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert'
 import './App.css';
 
 import Personal from './components/Personal.js';
 import Work from './components/Work.js';
 import Education from './components/Education.js';
+import Profile from './components/Profile.js';
+import Skills from './components/Skills.js';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       progress:0,
-      personal: [],
+      personal: {},
       work:[],
-      education:[]
+      education:[],
+      skills: {
+        social:{
+          change:false
+        },
+        skills:{
+          communicative: "0",
+          responsible: "0",
+          creative: "0",
+          multitasking: "0",
+          computerSkills: "0",
+          organizationalSkills: "0"
+        }
+      }
     }
+    this.nextProgress = this.nextProgress.bind(this);
+    this.prevProgress = this.prevProgress.bind(this);
+    this.processInput = this.processInput.bind(this);
+    this.removeInput = this.removeInput.bind(this);
   }
 
-
-  //set body color before component is rendered
-  componentWillMount(){
-    document.body.style.backgroundColor = "#f1c40f";
-  }
-
-
-  //change color of body based on displayed element
-  changeColor(element){
-    switch(element){
-      case 'personal':
-        document.body.style.backgroundColor = "#f1c40f";
-        break;
-      case 'experience':
-        document.body.style.backgroundColor = "#2ecc71";
-        break;
-      case 'education':
-        document.body.style.backgroundColor = "#e74c3c";
-        break;
-      case 'skills':
-        document.body.style.backgroundColor = "#3498db";
-        break;
-      default:
-        document.body.style.backgroundColor = "#9b59b6";
-        break;
-    }
-  }
-
-
-  //go to next state, change body color
-  nextProgress(element){
+  //go to next state
+  nextProgress(){
     //update the state
     this.setState({
       progress: this.state.progress + 1
     });
-    //call func to change body color
-    this.changeColor(element);
   }
 
-
-  //go to prev state, change body color
-  prevProgress(element){
+  //go to prev state
+  prevProgress(){
     //update the state
     this.setState({
       progress: this.state.progress - 1
     });
-    //call func to change body color
-    this.changeColor(element);
   }
 
+  removeInput(index, option){
+    var ar;
+    //assign values based on option
+    switch(option){
+      case 'education': { ar = this.state.education; break;}
+      case 'work': { ar = this.state.work; break;}
+      default: { ar = []; break;}
+    }
+    //remove item from array
+    ar.splice(index,1);
+    //update the state with now updated array
+    this.setState({
+      [option]: ar
+    });
+  }
+
+  processInput(values, option, form){
+    console.log(values);
+
+    if(option === 'personal'){
+      this.setState({
+        personal: values
+      });
+      swal("Success", "Personal Bio has been added!","success");
+    }else if(option === 'education'){
+      this.setState({
+        education: [...this.state.education, values]
+      });
+      swal("Success", "Qualification has been added!","success")
+      .then(function(){
+        form.reset();
+        document.getElementById('collapseEducation').classList.remove("show");
+      });
+    }else if(option === 'work'){
+      this.setState({
+        work: [...this.state.work, values]
+      });
+      swal("Success", "Work Experience has been added!","success")
+      .then(function(){
+        form.reset();
+        document.getElementById('collapseWork').classList.remove("show");
+      });
+    }else if(option === 'skills'){
+      this.setState({
+        skills: values
+      });
+      swal("Success", "Skills and competencies have been added!","success");
+    }
+  }
 
   //render the components based on progress
   render() {
@@ -74,76 +109,48 @@ class App extends Component {
         <div className="page">
           <ProgressBar progress="20" />
           <br/>
-          <Personal />
-          <Navigation next={this.nextProgress.bind(this,'experience')} prev="" />
+          <Personal returnValues={this.processInput} data={this.state.personal} />
+          <Navigation next={this.nextProgress} prev="" />
         </div>
       );
       case 1:return (
         <div className="page">
           <ProgressBar progress="40" />
           <br/>
-          <Work />
-          <Navigation next={this.nextProgress.bind(this,'education')} prev={this.prevProgress.bind(this,'personal')} />
+          <Work returnValues={this.processInput} data={this.state.work} removeValues={this.removeInput}/>
+          <Navigation next={this.nextProgress} prev={this.prevProgress} />
         </div>
       );
       case 2:return (
         <div className="page">
           <ProgressBar progress="60" />
           <br/>
-          <Education />
-          <Navigation next={this.nextProgress.bind(this,'skills')} prev={this.prevProgress.bind(this,'experience')} />
+          <Education returnValues={this.processInput} data={this.state.education} removeValues={this.removeInput}/>
+          <Navigation next={this.nextProgress} prev={this.prevProgress} />
         </div>
       );
       case 3:return (
         <div className="page">
           <ProgressBar progress="80" />
           <br/>
-          <h4>Skills and Qualifications</h4>
-          <Navigation next={this.nextProgress.bind(this,'default')} prev={this.prevProgress.bind(this,'education')} />
+          <Skills returnValues={this.processInput} data={this.state.skills} />
+          <Navigation next={this.nextProgress} prev={this.prevProgress} />
         </div>
       );
       default:return (
         <div className="page">
           <ProgressBar progress="100" />
           <br/>
-          <div className="row">
-            <div className="col-sm-12">
-              <h4>Final Steps</h4>
-            </div>
-          </div>
+          <Profile data={this.state} />
 
-          <div className="row text-center">
-            <div className="col-sm-4">
-              <div className="final-button">
-              <i class="fa fa-share-alt fa-5x"></i>
-              <h5>Share CV</h5>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="final-button">
-              <i class="fa fa-floppy-o fa-5x"></i>
-              <h5>Save XML</h5>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="final-button">
-              <i class="fa fa-download fa-5x"></i>
-              <h5>Download PDF</h5>
-              </div>
-            </div>
-          </div>
+          <span className="fa-stack fa-2x final-button two" onClick={this.prevProgress}>
+            <i className="fa fa-circle fa-stack-2x"></i>
+            <i className="fa fa-undo fa-stack-1x fa-inverse"></i>
+          </span>
 
-          <div className="row text-center">
-            <div className="col-sm-12">
-              <hr/>
-            </div>
-          </div>
-
-          <Navigation next="" prev={this.prevProgress.bind(this,'skills')} />
         </div>
       );
     }
-
   }
 }
 
@@ -166,18 +173,20 @@ class Navigation extends Component{
     //check if prev is set
     if(this.props.prev!==""){
       rows.push(
-        <div className="col-sm-6" key={1}>
-          <button className="btn btn-light btn-block" onClick={this.props.prev}>Prev</button>
-        </div>
+        <span key="2" className="fa-stack fa-2x final-button two" onClick={this.props.prev}>
+          <i className="fa fa-circle fa-stack-2x"></i>
+          <i className="fa fa-arrow-circle-left fa-stack-1x fa-inverse"></i>
+        </span>
       );
     }
 
     //check if next is set
     if(this.props.next!==""){
       rows.push(
-        <div className="col-sm-6" key={2}>
-          <button className="btn btn-light btn-block" onClick={this.props.next}>Next</button>
-        </div>
+        <span key="1" className="fa-stack fa-2x final-button one" onClick={this.props.next}>
+          <i className="fa fa-circle fa-stack-2x"></i>
+          <i className="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
+        </span>
       );
     }
 
