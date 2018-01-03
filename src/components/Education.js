@@ -37,6 +37,14 @@ class Education extends Component {
   }
 
   /*
+  * Function used to remove data
+  */
+  removeEducation(values){
+    //console.log(values);
+    this.props.removeValues(values,'education');
+  }
+
+  /*
   * Function that renders the qualifications from the data
   * input: data
   * output: generated output code
@@ -56,11 +64,11 @@ class Education extends Component {
               <div className="row">
                 <div className="col-sm-3">
                 <div className="mainIcon" style={{background:"#fdc318"}}><i className="fa fa-graduation-cap fa-5x" aria-hidden="true"></i></div>
-                <button className="btn btn-default btn-block" style={{borderRadius:'0px'}}><i className="fa fa-trash" aria-hidden="true"></i></button>
+                <button onClick={this.removeEducation.bind(this,i)} className="btn btn-default btn-block" style={{borderRadius:'0px'}}><i className="fa fa-trash" aria-hidden="true"></i></button>
                 </div>
                 <div className="col-sm-9">
                 <h4 style={{color:'#fdc318'}}>{data[i].qualification}</h4>
-                <h5>{data[i].organization}, {data[i].address}, {data[i].website}</h5>
+                <h5>{data[i].organization}, {data[i].address}</h5>
                 <p><i className="fa fa-calendar" aria-hidden="true"></i> From: {data[i].start}, <i className="fa fa-calendar" aria-hidden="true"></i> To: {data[i].end}</p>
                 <p>{data[i].description}</p>
                 </div>
@@ -155,18 +163,18 @@ class EducationForm extends Component{
 
           <div className="row">
               <div className="col-sm-6">
-                <input type="text" name="qualification" placeholder="Title of qualification awarded: " />
-                <input type="text" name="organization" placeholder="Organisation providing education or training: " />
-                <input type="text" name="address" placeholder="Organisation Address: " />
+                <input type="text" name="qualification" placeholder="Title of qualification awarded: " required/>
+                <input type="text" name="organization" placeholder="Organisation providing education or training: " required/>
+                <input type="text" name="address" placeholder="Organisation Address: " required/>
                 <h5>Optional Description:</h5>
                 <textarea name="description" className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
               <div className="col-sm-6">
                 <div style={{margin:'3% 0'}}>
                   <h5>Start Date:</h5>
-                  <input type="date" name="startDate" id="start-date"/>
+                  <input type="date" name="startDate" id="start-date" required/>
                   <h5>End Date:</h5>
-                  <input type="date" name="endDate" id="end-date"/>
+                  <input type="date" name="endDate" id="end-date" required/>
                   <div className="form-check text-left">
                     <input name="ongoing" type="checkbox" onChange={this.checkBox.bind(this)} className="form-check-input" style={{width:'auto'}} id="exampleCheck1"/>
                     <label className="form-check-label">Ongoing</label>
@@ -177,7 +185,7 @@ class EducationForm extends Component{
 
           <div className="row">
             <div className="col-sm-6">
-              <button type="submit" className="btn btn-default btn-block"><i className="fa fa-plus-circle" aria-hidden="true"></i> Add Work</button>
+              <button type="submit" className="btn btn-dark btn-block"><i className="fa fa-plus-circle" aria-hidden="true"></i> Add Work</button>
             </div>
           </div>
 

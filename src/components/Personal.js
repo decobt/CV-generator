@@ -115,7 +115,7 @@ class Personal extends Component {
         <div className="row">
           <div className="col-sm-7">
             <h5>Basic Information</h5>
-              <PersonalForm formSubmit={this.setPersonal} />
+              <PersonalForm formSubmit={this.setPersonal} data={this.props.data} />
           </div>
           <div className="col-sm-5">
             <h5>Upload Image</h5>
@@ -134,20 +134,21 @@ class Personal extends Component {
 */
 class PersonalForm extends Component{
   render(){
+    var personal = this.props.data;
     return (
       <form onSubmit={this.props.formSubmit}>
-        <input type="text" name="name" placeholder="Full name: " />
-        <input type="email" name="email" placeholder="Email Address: " />
-        <input type="text" name="phone" placeholder="Phone Number: " />
+        <input type="text" name="name" placeholder="Full name: " defaultValue={personal.name} required/>
+        <input type="email" name="email" placeholder="Email Address: " defaultValue={personal.email} required/>
+        <input type="text" name="phone" placeholder="Phone Number: " defaultValue={personal.phone} required/>
         <hr/>
         <h5>Date of birth</h5>
-        <input type="date" name="birthday"/>
+        <input type="date" name="birthday" defaultValue={personal.birthday} required/>
         <hr/>
         <h5>Address</h5>
-        <input type="text" name="address1" placeholder="Address Line 1: " />
-        <input type="text" name="address2" placeholder="Address Line 2: " />
+        <input type="text" name="address1" placeholder="Street: " defaultValue={personal.address1} required/>
+        <input type="text" name="address2" placeholder="City, Country: " defaultValue={personal.address2}/>
 
-        <input type="submit" className="btn btn-default btn-block" value="+ Add Personal Bio"/>
+        <button type="submit" className="btn btn-dark btn-block"><i className="fa fa-plus-circle" aria-hidden="true"></i> Add Personal Bio</button>
       </form>
     );
   }
