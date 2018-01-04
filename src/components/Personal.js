@@ -4,9 +4,6 @@ import swal from 'sweetalert';
 class Personal extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      photo:''
-    }
     this.setPersonal = this.setPersonal.bind(this);
   }
 
@@ -22,7 +19,6 @@ class Personal extends Component {
     //define needed variables
     var form = el.target;
     var values = {
-      image: this.state.photo,
       name: form.name.value,
       email: form.email.value,
       phone: form.phone.value,
@@ -37,19 +33,17 @@ class Personal extends Component {
   /*
   * Removes the image from the document
   * Removes (hidden, dragover) from classList on dragDrop field
-  * Changes state to have empty photo
+  * Changes state to have empty image
   */
   removeImage(){
     //remove the image element
-    document.getElementById('output').removeChild(document.getElementById('output').childNodes[1]);
+    //document.getElementById('output').removeChild(document.getElementById('output').childNodes[1]);
     //remove the hidden class from the drag and drop field
     document.getElementById('dragDrop').classList.remove('hidden');
     //remove the dragover class from the drag and drop field
     document.getElementById('dragDrop').classList.remove('dragover');
-    //change state to have empty photo
-    this.setState({
-      photo:''
-    });
+    //return the object with input values
+    this.props.returnValues({image:""},'image', null);
   }
 
   /*
@@ -72,8 +66,6 @@ class Personal extends Component {
       var output = document.createElement('img');
       //set src atribute to have the value of dataURL
       output.src = dataURL;
-      //set the class
-      output.className = 'output';
       //onload run the function
       output.onload = function() {
         //set variables with image dimensions
@@ -82,11 +74,10 @@ class Personal extends Component {
 
             //check the image dimensions
             if(width>500 && height>500){
-              document.getElementById('output').appendChild(output);
+              //document.getElementById('output').appendChild(output);
               document.getElementById('dragDrop').classList.add('hidden');
-              this.setState({
-                photo: dataURL
-              });
+              //return the object with input values
+              this.props.returnValues({image: dataURL},'image', null);
             }else{
               //display error if image is less than 500x500
               document.getElementById('dragDrop').classList.remove('dragover');
@@ -119,7 +110,7 @@ class Personal extends Component {
           </div>
           <div className="col-sm-5">
             <h5>Upload Image</h5>
-            <DragDropField onDrop={this.onDrop.bind(this)} removeImage={this.removeImage.bind(this)} />
+            <DragDropField onDrop={this.onDrop.bind(this)} removeImage={this.removeImage.bind(this)} image={this.props.data.image} />
           </div>
         </div>
 
@@ -146,7 +137,7 @@ class PersonalForm extends Component{
         <hr/>
         <h5>Address</h5>
         <input type="text" name="address1" placeholder="Street: " defaultValue={personal.address1} required/>
-        <input type="text" name="address2" placeholder="City, Country: " defaultValue={personal.address2}/>
+        <input type="text" name="address2" placeholder="City, Country: " defaultValue={personal.address2} required/>
 
         <button type="submit" className="btn btn-dark btn-block"><i className="fa fa-plus-circle" aria-hidden="true"></i> Add Personal Bio</button>
       </form>
@@ -179,21 +170,39 @@ class DragDropField extends Component{
   }
 
   /*
-  * Render function for the component
+  * Render function for the drag and drop component
   */
   render(){
-    return (
-      <div>
-        <div id="output">
-          <div id="overlay" onClick={this.props.removeImage}><i className="fa fa-times fa-5x" aria-hidden="true"></i></div>
+    //console.log('image: ' + this.props.image);
+    //check if image is set
+    if(this.props.image.length <= 0){
+      return (
+        <div>
+          <div id="output">
+            <div id="overlay" onClick={this.props.removeImage}><i className="fa fa-times fa-5x" aria-hidden="true"></i></div>
+          </div>
+          <div className="text-center dragDrop" id="dragDrop" onDragLeave={this.onDragLeave.bind(this)} onDrop={this.props.onDrop} onDragOver={this.onDragOver.bind(this)}>
+            <p><i className="fa fa-picture-o fa-4x" aria-hidden="true"></i></p>
+            <label htmlFor="file"><strong>Choose an image</strong><span className="box_dragndrop"> or drag it here</span>.</label>
+            <input className="box_file" onChange={this.props.onDrop} type="file" name="files" id="file" />
+          </div>
         </div>
-        <div className="text-center dragDrop" id="dragDrop" onDragLeave={this.onDragLeave.bind(this)} onDrop={this.props.onDrop} onDragOver={this.onDragOver.bind(this)}>
+      );
+    }else{
+      return (
+        <div>
+          <div id="output">
+            <div id="overlay" onClick={this.props.removeImage}><i className="fa fa-times fa-5x" aria-hidden="true"></i></div>
+            <img src={this.props.image} className="output" alt="Profile" />
+          </div>
+          <div className="text-center dragDrop hidden" id="dragDrop" onDragLeave={this.onDragLeave.bind(this)} onDrop={this.props.onDrop} onDragOver={this.onDragOver.bind(this)}>
           <p><i className="fa fa-picture-o fa-4x" aria-hidden="true"></i></p>
           <label htmlFor="file"><strong>Choose an image</strong><span className="box_dragndrop"> or drag it here</span>.</label>
           <input className="box_file" onChange={this.props.onDrop} type="file" name="files" id="file" />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
