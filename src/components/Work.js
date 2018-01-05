@@ -64,12 +64,12 @@ class Work extends Component {
               <div className="timeline_panel">
               <div className="row">
                 <div className="col-sm-3">
-                <div className="mainIcon" style={{background:"#fdc318"}}><i className="fa fa-building fa-5x" aria-hidden="true"></i></div>
+                <div id="mainIcon" className="mainIcon"><i className="fa fa-building fa-5x" aria-hidden="true"></i></div>
                 <button onClick={this.removeWork.bind(this,i)} className="btn btn-default btn-block" style={{borderRadius:'0px'}}><i className="fa fa-trash" aria-hidden="true"></i></button>
                 </div>
                 <div className="col-sm-9">
-                <h4 style={{color:'#fdc318'}}>{data[i].position}</h4>
-                <h5>{data[i].employer}, {data[i].address}, {data[i].website}</h5>
+                <h5 id="mainTitle">{data[i].position}</h5>
+                <h6>{data[i].employer}, {data[i].address}, {data[i].website}</h6>
                 <p><i className="fa fa-calendar" aria-hidden="true"></i> From: {data[i].start}, <i className="fa fa-calendar" aria-hidden="true"></i> To: {data[i].end}</p>
                 <p>{data[i].description}</p>
                 </div>
