@@ -77,7 +77,7 @@ textarea{
 .two{
   bottom:80px;
 }
-.final-button:hover i:last-child, .final-button:focus i:last-child{
+#fixed-icon{
   color:#fdc318;
 }
 .timeline_panel{
@@ -86,10 +86,14 @@ textarea{
   margin-bottom:20px;
   color:#f5f5f5;
 }
+#mainTitle{
+  color:#fdc318;
+}
 .mainIcon{
   padding:10px;
   color:#2f2f2f;
   text-align:center;
+  background:#fdc318;
 }
 .hidden{
   display:none
@@ -104,7 +108,7 @@ textarea{
   color:white;
   -webkit-transition: display .25s ease-in-out, background-color .15s linear;
   transition: display .25s ease-in-out, background-color .15s linear;
-  background-color: rgba(231, 76, 60, 0.5);
+  background-color: rgba(42, 42, 42, 0.5);
 }
 #output{
   position:relative;
@@ -228,4 +232,15 @@ textarea{
 /* style all elements with a required attribute */
 :invalid {
   box-shadow: none;
+}
+.colorPalette{
+  position:fixed;
+  bottom:20px;
+  right:90px;
+  padding:10px;
+  background:#222;
+  border-radius:4px;
+}
+.colorPalette i{
+  margin:2px;
 }

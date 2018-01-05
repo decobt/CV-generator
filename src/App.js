@@ -12,8 +12,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      progress:0,
-      personal: {},
+      progress:4,
+      personal: {image:""},
       work:[],
       education:[],
       skills: {
@@ -30,13 +30,16 @@ class App extends Component {
         }
       }
     }
+    //find functions
     this.nextProgress = this.nextProgress.bind(this);
     this.prevProgress = this.prevProgress.bind(this);
     this.processInput = this.processInput.bind(this);
     this.removeInput = this.removeInput.bind(this);
   }
 
-  //go to next state
+  /*
+  * Function to go to next state
+  */
   nextProgress(){
     //update the state
     this.setState({
@@ -44,7 +47,9 @@ class App extends Component {
     });
   }
 
-  //go to prev state
+  /*
+  * Function to go to prev state
+  */
   prevProgress(){
     //update the state
     this.setState({
@@ -52,6 +57,10 @@ class App extends Component {
     });
   }
 
+  /*
+  * Function to remove obj from education or work arrays
+  * input: index (item in array to remove), option (which array to use)
+  */
   removeInput(index, option){
     var ar;
     //assign values based on option
@@ -68,41 +77,71 @@ class App extends Component {
     });
   }
 
+  /*
+  * Function to process input send back from the forms
+  * input: values(object), option(state variable), form object
+  * the function changes the state values
+  */
   processInput(values, option, form){
-    console.log(values);
-
-    if(option === 'personal'){
+    //check option against few conditions
+    if(option === 'image'){
+      //change the state
       this.setState({
-        personal: values
+        personal: {...this.state.personal, image:values.image}
       });
-      swal("Success", "Personal Bio has been added!","success");
+    }else if(option === 'personal'){
+      //change the state
+      this.setState({
+        personal: {
+          ...this.state.personal,
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          birthday: values.birthday,
+          address1: values.address1,
+          address2: values.address2
+        }
+      });
+      //display success alert message
+      swal("Success", "Personal Info has been added!","success");
     }else if(option === 'education'){
+      //change the state if option equals education
       this.setState({
         education: [...this.state.education, values]
       });
+      //display alert for success
       swal("Success", "Qualification has been added!","success")
       .then(function(){
+        //after the user dismisses the alert, reset form
         form.reset();
+        //hide the form
         document.getElementById('collapseEducation').classList.remove("show");
       });
     }else if(option === 'work'){
+      //change the state if option equals work
       this.setState({
         work: [...this.state.work, values]
       });
+      //display success alert
       swal("Success", "Work Experience has been added!","success")
       .then(function(){
+        //once the user dismisses the alert, clear the form and hide it
         form.reset();
         document.getElementById('collapseWork').classList.remove("show");
       });
     }else if(option === 'skills'){
+      //if options equals skills, update the state
       this.setState({
         skills: values
       });
+      //display success alert message
       swal("Success", "Skills and competencies have been added!","success");
     }
   }
 
-  //render the components based on progress
+  /*
+  * render the components based on progress
+  */
   render() {
     switch(this.state.progress){
       case 0:return (
@@ -154,7 +193,9 @@ class App extends Component {
   }
 }
 
-// class for the progress bar on top of the page
+/*
+* class for the progress bar on top of the page
+*/
 class ProgressBar extends Component{
   render(){
     return (
@@ -165,7 +206,9 @@ class ProgressBar extends Component{
   }
 }
 
-// class for navigation at bottom of page
+/*
+* class for navigation at bottom of page
+*/
 class Navigation extends Component{
   render(){
     var rows = [];
@@ -175,7 +218,7 @@ class Navigation extends Component{
       rows.push(
         <span key="2" className="fa-stack fa-2x final-button two" onClick={this.props.prev}>
           <i className="fa fa-circle fa-stack-2x"></i>
-          <i className="fa fa-arrow-circle-left fa-stack-1x fa-inverse"></i>
+          <i id="fixed-icon" className="fa fa-arrow-circle-left fa-stack-1x fa-inverse"></i>
         </span>
       );
     }
@@ -185,7 +228,7 @@ class Navigation extends Component{
       rows.push(
         <span key="1" className="fa-stack fa-2x final-button one" onClick={this.props.next}>
           <i className="fa fa-circle fa-stack-2x"></i>
-          <i className="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
+          <i id="fixed-icon" className="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
         </span>
       );
     }
@@ -198,4 +241,5 @@ class Navigation extends Component{
   }
 }
 
+//export App component
 export default App;
