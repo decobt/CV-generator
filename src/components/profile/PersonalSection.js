@@ -100,7 +100,7 @@ class PersonalSection extends Component{
     }else{
       //else output a placeholder for the image
       output.push(
-        <img key="2" alt="Profile" src="http://via.placeholder.com/500x500" className="img-fluid" />
+        <img key="2" alt="Profile" src="http://via.placeholder.com/500x500?text=Profile+photo" className="img-fluid" />
       );
     }
     //return the output

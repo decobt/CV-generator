@@ -11,15 +11,15 @@ class EducationSection extends Component{
         output.push(
           <div className="row" style={{marginBottom:'20px'}} key={i}>
             <div className="col-sm-4 col-md-3 text-center">
-              <span className="timelineDate date1" style={{width:'100%'}}>{data.end}</span>
-              <span className="timelineDate date2" style={{width:'100%'}}>{data.start}</span>
+              <span id="date1" className="timelineDate date1" style={{width:'100%'}}>{data[i].end}</span>
+              <span id="date2" className="timelineDate date2" style={{width:'100%'}}>{data[i].start}</span>
             </div>
             <div className="col-sm-8 col-md-9">
                 <div className="arrow_box arrow_box_left">
-                  <h5 style={{color:'#fdc318'}}>{data.qualification}</h5>
-                  <h6>{data.organization}</h6>
-                  <p><i className="fa fa-map-marker" aria-hidden="true"></i> {data.address}</p>
-                  <p>{data.description}</p>
+                  <h5 id="mainTitle">{data[i].qualification}</h5>
+                  <h6>{data[i].organization}</h6>
+                  <p><i className="fa fa-map-marker" aria-hidden="true"></i> {data[i].address}</p>
+                  <p>{data[i].description}</p>
                 </div>
             </div>
           </div>
