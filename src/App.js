@@ -168,13 +168,7 @@ class App extends Component {
         <div className="page">
           <ProgressBar progress="100" />
           <br/>
-          <Profile data={this.state} />
-
-          <span className="fa-stack fa-2x final-button three" onClick={this.changeProgress.bind(this,0)} >
-            <i className="fa fa-circle fa-stack-2x"></i>
-            <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
-          </span>
-
+          <Profile data={this.state} edit={this.changeProgress.bind(this,0)} />
         </div>
       );
     }
