@@ -84,12 +84,12 @@ class Profile extends Component {
           </div>
         </div>
 
-        <span className="fa-stack fa-2x final-button one" onClick={this.displayDrawer.bind(this)} >
+        <span className="fa-stack fa-2x final-button two" onClick={this.displayDrawer.bind(this)} data-toggle="tooltip" data-placement="left" title="Change bg color">
           <i className="fa fa-circle fa-stack-2x"></i>
           <i className="fa fa-tint fa-stack-1x fa-inverse"></i>
         </span>
 
-        <span className="fa-stack fa-2x final-button three" onClick={this.generatePDF.bind(this)} >
+        <span className="fa-stack fa-2x final-button one" onClick={this.generatePDF.bind(this)} data-toggle="tooltip" data-placement="left" title="Download PDF">
           <i className="fa fa-circle fa-stack-2x"></i>
           <i className="fa fa-download fa-stack-1x fa-inverse"></i>
         </span>

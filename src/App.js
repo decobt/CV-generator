@@ -30,30 +30,18 @@ class App extends Component {
         }
       }
     }
-    //find functions
-    this.nextProgress = this.nextProgress.bind(this);
-    this.prevProgress = this.prevProgress.bind(this);
+    //bind functions
     this.processInput = this.processInput.bind(this);
     this.removeInput = this.removeInput.bind(this);
   }
 
   /*
-  * Function to go to next state
+  * Function used to change the progress
   */
-  nextProgress(){
+  changeProgress(num){
     //update the state
     this.setState({
-      progress: this.state.progress + 1
-    });
-  }
-
-  /*
-  * Function to go to prev state
-  */
-  prevProgress(){
-    //update the state
-    this.setState({
-      progress: this.state.progress - 1
+      progress: num
     });
   }
 
@@ -149,7 +137,7 @@ class App extends Component {
           <ProgressBar progress="20" />
           <br/>
           <Personal returnValues={this.processInput} data={this.state.personal} />
-          <Navigation next={this.nextProgress} prev="" />
+          <Navigation next={this.changeProgress.bind(this,1)} prev="" />
         </div>
       );
       case 1:return (
@@ -157,7 +145,7 @@ class App extends Component {
           <ProgressBar progress="40" />
           <br/>
           <Work returnValues={this.processInput} data={this.state.work} removeValues={this.removeInput}/>
-          <Navigation next={this.nextProgress} prev={this.prevProgress} />
+          <Navigation next={this.changeProgress.bind(this,2)} prev={this.changeProgress.bind(this,0)} />
         </div>
       );
       case 2:return (
@@ -165,7 +153,7 @@ class App extends Component {
           <ProgressBar progress="60" />
           <br/>
           <Education returnValues={this.processInput} data={this.state.education} removeValues={this.removeInput}/>
-          <Navigation next={this.nextProgress} prev={this.prevProgress} />
+          <Navigation next={this.changeProgress.bind(this,3)} prev={this.changeProgress.bind(this,1)} />
         </div>
       );
       case 3:return (
@@ -173,7 +161,7 @@ class App extends Component {
           <ProgressBar progress="80" />
           <br/>
           <Skills returnValues={this.processInput} data={this.state.skills} />
-          <Navigation next={this.nextProgress} prev={this.prevProgress} />
+          <Navigation next={this.changeProgress.bind(this,4)} prev={this.changeProgress.bind(this,2)} />
         </div>
       );
       default:return (
@@ -182,9 +170,9 @@ class App extends Component {
           <br/>
           <Profile data={this.state} />
 
-          <span className="fa-stack fa-2x final-button two" onClick={this.prevProgress}>
+          <span className="fa-stack fa-2x final-button three" onClick={this.changeProgress.bind(this,0)}  data-toggle="tooltip" data-placement="left" title="Edit profile">
             <i className="fa fa-circle fa-stack-2x"></i>
-            <i className="fa fa-undo fa-stack-1x fa-inverse"></i>
+            <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
           </span>
 
         </div>
@@ -216,7 +204,7 @@ class Navigation extends Component{
     //check if prev is set
     if(this.props.prev!==""){
       rows.push(
-        <span key="2" className="fa-stack fa-2x final-button two" onClick={this.props.prev}>
+        <span key="2" className="fa-stack fa-2x final-button two" onClick={this.props.prev} data-toggle="tooltip" data-placement="left" title="Next">
           <i className="fa fa-circle fa-stack-2x"></i>
           <i id="fixed-icon" className="fa fa-arrow-circle-left fa-stack-1x fa-inverse"></i>
         </span>
@@ -226,7 +214,7 @@ class Navigation extends Component{
     //check if next is set
     if(this.props.next!==""){
       rows.push(
-        <span key="1" className="fa-stack fa-2x final-button one" onClick={this.props.next}>
+        <span key="1" className="fa-stack fa-2x final-button one" onClick={this.props.next} data-toggle="tooltip" data-placement="left" title="Back">
           <i className="fa fa-circle fa-stack-2x"></i>
           <i id="fixed-icon" className="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
         </span>

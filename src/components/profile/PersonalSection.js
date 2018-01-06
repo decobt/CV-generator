@@ -10,7 +10,7 @@ class PersonalSection extends Component{
     //check if data(link) is not empty
     if(data!==""){
       return (
-        <li><a href={data}><i className={'fa fa-' + title +'-square fa-2x'} aria-hidden="true"></i> </a></li>
+        <li key={title}><a href={data}><i className={'fa fa-' + title +'-square fa-2x'} aria-hidden="true"></i> </a></li>
       );
     }
   }
@@ -31,7 +31,7 @@ class PersonalSection extends Component{
          data.github.length > 0 || data.bitbucket.length > 0){
            //if the condition is met, push the output data
             output.push(
-              <div className="text-center" style={{background:'#222', padding:'10px'}}>
+              <div key="1" className="text-center" style={{background:'#222', padding:'10px'}}>
                 <ul className="socialMedia">
                     {this.generateListItem(data.twitter, 'twitter')}
                     {this.generateListItem(data.linkedin, 'linkedin')}
