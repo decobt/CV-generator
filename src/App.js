@@ -170,7 +170,7 @@ class App extends Component {
           <br/>
           <Profile data={this.state} />
 
-          <span className="fa-stack fa-2x final-button three" onClick={this.changeProgress.bind(this,0)}  data-toggle="tooltip" data-placement="left" title="Edit profile">
+          <span className="fa-stack fa-2x final-button three" onClick={this.changeProgress.bind(this,0)} >
             <i className="fa fa-circle fa-stack-2x"></i>
             <i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
           </span>
@@ -204,7 +204,7 @@ class Navigation extends Component{
     //check if prev is set
     if(this.props.prev!==""){
       rows.push(
-        <span key="2" className="fa-stack fa-2x final-button two" onClick={this.props.prev} data-toggle="tooltip" data-placement="left" title="Next">
+        <span key="2" className="fa-stack fa-2x final-button two" onClick={this.props.prev}>
           <i className="fa fa-circle fa-stack-2x"></i>
           <i id="fixed-icon" className="fa fa-arrow-circle-left fa-stack-1x fa-inverse"></i>
         </span>
@@ -214,7 +214,7 @@ class Navigation extends Component{
     //check if next is set
     if(this.props.next!==""){
       rows.push(
-        <span key="1" className="fa-stack fa-2x final-button one" onClick={this.props.next} data-toggle="tooltip" data-placement="left" title="Back">
+        <span key="1" className="fa-stack fa-2x final-button one" onClick={this.props.next}>
           <i className="fa fa-circle fa-stack-2x"></i>
           <i id="fixed-icon" className="fa fa-arrow-circle-right fa-stack-1x fa-inverse"></i>
         </span>
