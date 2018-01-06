@@ -11,8 +11,8 @@ class EducationSection extends Component{
         output.push(
           <div className="row" style={{marginBottom:'20px'}} key={i}>
             <div className="col-sm-4 col-md-3 text-center">
-              <span id="date1" className="timelineDate date1" style={{width:'100%'}}>{data[i].end}</span>
-              <span id="date2" className="timelineDate date2" style={{width:'100%'}}>{data[i].start}</span>
+              <span id="date1" className="timelineDate date1" style={{width:'100%'}}>{data[i].start}</span>
+              <span id="date2" className="timelineDate date2" style={{width:'100%'}}>{data[i].end}</span>
             </div>
             <div className="col-sm-8 col-md-9">
                 <div className="arrow_box arrow_box_left">
@@ -35,7 +35,7 @@ class EducationSection extends Component{
   render(){
     var rows = this.generateEducation(this.props.data);
     return (
-    <div className="educationSection">
+    <div id="educationSection" className="educationSection">
       <div style={{background:'#f1f1f1', padding:'20px'}}>
         <div className="header text-center">
           <span className="fa-stack fa-3x">
