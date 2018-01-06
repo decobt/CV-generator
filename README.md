@@ -1,7 +1,9 @@
 # CV Generator
 
 CV generator allows the user to create a resume directly in the browser. It is developed entirely in ReactJS.
-[LIVE DEMO](https://www.google.com "CV Generator")
+
+
+[LIVE DEMO](https://moecv.herokuapp.com/ "CV Generator")
 
 ## Getting Started
 
