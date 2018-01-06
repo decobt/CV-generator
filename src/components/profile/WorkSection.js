@@ -35,7 +35,7 @@ class WorkSection extends Component{
   render() {
     var rows = this.generateWork(this.props.data);
     return (
-      <div className="workSection">
+      <div id="workSection" className="workSection">
           <div style={{background:'#f1f1f1', padding:'20px'}}>
             <div className="header text-center">
               <span className="fa-stack fa-3x">

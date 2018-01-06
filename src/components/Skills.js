@@ -136,7 +136,7 @@ class RangeSlider extends Component{
       <div className="text-left">
       <h6>{this.props.title} - <strong><span id={this.props.name}>{this.props.data}</span>%</strong></h6>
       <div className="range-slider">
-        <input name={this.props.name} className="range-slider__range" type="range" min="0" max="100" defaultValue={this.props.data} onChange={this.rangeUpdate} />
+        <input name={this.props.name} className="range-slider__range" type="range" min="0" max="100" step="5" defaultValue={this.props.data} onChange={this.rangeUpdate} />
       </div>
       </div>
     );

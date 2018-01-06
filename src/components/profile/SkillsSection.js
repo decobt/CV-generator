@@ -4,7 +4,7 @@ class SkillsSection extends Component{
   render() {
     var skills = this.props.data;
     return (
-    <div className="skillSection">
+    <div id="skillSection" className="skillSection">
       <div style={{background:'#f1f1f1', padding:'20px'}}>
         <div className="header text-center">
           <span className="fa-stack fa-3x">

@@ -10,7 +10,7 @@ class PersonalSection extends Component{
     //check if data(link) is not empty
     if(data!==""){
       return (
-        <li><a href={data}><i className={'fa fa-' + title +'-square fa-3x'} aria-hidden="true"></i> </a></li>
+        <li><a href={data}><i className={'fa fa-' + title +'-square fa-2x'} aria-hidden="true"></i> </a></li>
       );
     }
   }
@@ -31,7 +31,7 @@ class PersonalSection extends Component{
          data.github.length > 0 || data.bitbucket.length > 0){
            //if the condition is met, push the output data
             output.push(
-              <div className="text-center" style={{background:'#222', padding:'20px'}}>
+              <div className="text-center" style={{background:'#222', padding:'10px'}}>
                 <ul className="socialMedia">
                     {this.generateListItem(data.twitter, 'twitter')}
                     {this.generateListItem(data.linkedin, 'linkedin')}
@@ -100,7 +100,7 @@ class PersonalSection extends Component{
     }else{
       //else output a placeholder for the image
       output.push(
-        <img key="2" alt="Profile" src="http://via.placeholder.com/500x500?text=Profile+photo" className="img-fluid" />
+        <img key="2" alt="Profile" src={process.env.PUBLIC_URL + '/profile-image.png'} className="img-fluid" />
       );
     }
     //return the output
@@ -119,7 +119,7 @@ class PersonalSection extends Component{
         image = this.generateImage(personal);
 
     return (
-      <div className="row" style={{marginBottom:'20px'}}>
+      <div id="personalSection" className="row" style={{marginBottom:'20px'}}>
         <div className="col-sm-4">
           {image}
           {media}

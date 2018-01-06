@@ -6,6 +6,9 @@ import WorkSection from './profile/WorkSection.js';
 import EducationSection from './profile/EducationSection.js';
 import SkillsSection from './profile/SkillsSection.js';
 
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
 class Profile extends Component {
   constructor(props){
     super(props);
@@ -15,13 +18,55 @@ class Profile extends Component {
     //console.log(color);
     document.body.style.backgroundColor = color;
   }
+
   generatePDF(){
+        var doc = new jsPDF();
+
+        // Default export is a4 paper, portrait, using milimeters for units
+        html2canvas(document.querySelector("#personalSection")).then(canvas => {
+            this.genPDF(doc,canvas,1);
+            html2canvas(document.querySelector("#workSection")).then(canvas => {
+                this.genPDF(doc,canvas,2);
+                html2canvas(document.querySelector("#educationSection")).then(canvas => {
+                    this.genPDF(doc,canvas,3);
+                    html2canvas(document.querySelector("#skillSection")).then(canvas => {
+                        this.genPDF(doc,canvas,4);
+                    });
+                });
+            });
+        });
+  }
+
+
+  displayDrawer(){
     var element = document.getElementById('colorPalette')
     if (element.classList.contains('hidden')){
       element.classList.remove('hidden');
     }else{
       element.classList.add('hidden');
     }
+  }
+
+
+  genPDF(doc, canvas, page){
+    var dataURL = canvas.toDataURL("image/png");
+    var i = new Image();
+    var factor;
+
+    i.onload = function(){
+      //calculate the factor
+         factor = i.width / 190;
+      //add image to the document
+         doc.addImage(dataURL, 'PNG', 10, 10, 190, i.height / factor);
+         if(page<4){
+           //add page to the document
+             doc.addPage('a4');
+         }else{
+           doc.save('resume.pdf');
+         }
+    };
+
+    i.src = dataURL;
   }
   render(){
     return (
@@ -39,9 +84,14 @@ class Profile extends Component {
           </div>
         </div>
 
-        <span className="fa-stack fa-2x final-button one" onClick={this.generatePDF.bind(this)} >
+        <span className="fa-stack fa-2x final-button one" onClick={this.displayDrawer.bind(this)} >
           <i className="fa fa-circle fa-stack-2x"></i>
           <i className="fa fa-tint fa-stack-1x fa-inverse"></i>
+        </span>
+
+        <span className="fa-stack fa-2x final-button three" onClick={this.generatePDF.bind(this)} >
+          <i className="fa fa-circle fa-stack-2x"></i>
+          <i className="fa fa-download fa-stack-1x fa-inverse"></i>
         </span>
 
         <div id="colorPalette" className="colorPalette hidden">
