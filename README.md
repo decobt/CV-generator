@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone the repository from git
 ```
-https://github.com/decobt/Weather-app.git
+https://github.com/decobt/CV-generator.git
 ```
 2. Run the command
 ```
