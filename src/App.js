@@ -8,6 +8,8 @@ import Education from './components/Education.js';
 import Profile from './components/Profile.js';
 import Skills from './components/Skills.js';
 
+import axios from 'axios';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -35,6 +37,18 @@ class App extends Component {
     this.removeInput = this.removeInput.bind(this);
   }
 
+  componentDidUpdate(){
+    console.log(this.state);
+
+    axios.post('/api/user', this.state)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
   /*
   * Function used to change the progress
   */

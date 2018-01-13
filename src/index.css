@@ -11,3 +11,24 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway';
     font-weight: 500;
 }
+.login {
+  height: 260px;
+}
+.signup {
+  height: 400px;
+}
+.homepage{
+  margin:10% auto;
+}
+.center-section{
+  position: fixed;
+  z-index: 999;
+  width:100%;
+  max-width: 480px;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
